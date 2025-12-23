@@ -1,0 +1,769 @@
+using System;
+using System.Windows.Forms;
+
+namespace IterativeSlaeLab4
+{
+    internal static class Program
+    {
+        [STAThread]
+        static void Main()
+        {
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new Form1());
+        }
+    }
+}
+
+namespace IterativeSlaeLab4
+{
+    partial class Form1
+    {
+        private System.ComponentModel.IContainer components = null;
+
+        private System.Windows.Forms.NumericUpDown nudN;
+        private System.Windows.Forms.Button btnCreate;
+        private System.Windows.Forms.Label lblN;
+
+        private System.Windows.Forms.Label lblA;
+        private System.Windows.Forms.DataGridView dgvA;
+
+        private System.Windows.Forms.Label lblB;
+        private System.Windows.Forms.DataGridView dgvB;
+
+        private System.Windows.Forms.Label lblX0;
+        private System.Windows.Forms.DataGridView dgvX0;
+
+        private System.Windows.Forms.Label lblEps;
+        private System.Windows.Forms.TextBox txtEps;
+
+        private System.Windows.Forms.Label lblMaxIter;
+        private System.Windows.Forms.TextBox txtMaxIter;
+
+        private System.Windows.Forms.Button btnX0Zeros;
+        private System.Windows.Forms.Button btnX0Ones;
+
+        private System.Windows.Forms.Button btnJacobi;
+        private System.Windows.Forms.Button btnSteepest;
+
+        private System.Windows.Forms.PictureBox pbPlot;
+
+        private System.Windows.Forms.TextBox txtResult;
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null)) components.Dispose();
+            base.Dispose(disposing);
+        }
+
+        private void InitializeComponent()
+        {
+            this.nudN = new System.Windows.Forms.NumericUpDown();
+            this.btnCreate = new System.Windows.Forms.Button();
+            this.lblN = new System.Windows.Forms.Label();
+            this.lblA = new System.Windows.Forms.Label();
+            this.dgvA = new System.Windows.Forms.DataGridView();
+            this.lblB = new System.Windows.Forms.Label();
+            this.dgvB = new System.Windows.Forms.DataGridView();
+            this.lblX0 = new System.Windows.Forms.Label();
+            this.dgvX0 = new System.Windows.Forms.DataGridView();
+            this.lblEps = new System.Windows.Forms.Label();
+            this.txtEps = new System.Windows.Forms.TextBox();
+            this.lblMaxIter = new System.Windows.Forms.Label();
+            this.txtMaxIter = new System.Windows.Forms.TextBox();
+            this.btnX0Zeros = new System.Windows.Forms.Button();
+            this.btnX0Ones = new System.Windows.Forms.Button();
+            this.btnJacobi = new System.Windows.Forms.Button();
+            this.btnSteepest = new System.Windows.Forms.Button();
+            this.pbPlot = new System.Windows.Forms.PictureBox();
+            this.txtResult = new System.Windows.Forms.TextBox();
+            ((System.ComponentModel.ISupportInitialize)(this.nudN)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvA)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvB)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvX0)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPlot)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // nudN
+            // 
+            this.nudN.Location = new System.Drawing.Point(48, 12);
+            this.nudN.Maximum = new decimal(new int[] { 20, 0, 0, 0 });
+            this.nudN.Minimum = new decimal(new int[] { 2, 0, 0, 0 });
+            this.nudN.Name = "nudN";
+            this.nudN.Size = new System.Drawing.Size(60, 20);
+            this.nudN.TabIndex = 0;
+            this.nudN.Value = new decimal(new int[] { 3, 0, 0, 0 });
+            // 
+            // btnCreate
+            // 
+            this.btnCreate.Location = new System.Drawing.Point(125, 10);
+            this.btnCreate.Name = "btnCreate";
+            this.btnCreate.Size = new System.Drawing.Size(140, 23);
+            this.btnCreate.TabIndex = 1;
+            this.btnCreate.Text = "Создать таблицы";
+            this.btnCreate.UseVisualStyleBackColor = true;
+            this.btnCreate.Click += new System.EventHandler(this.BtnCreate_Click);
+            // 
+            // lblN
+            // 
+            this.lblN.AutoSize = true;
+            this.lblN.Location = new System.Drawing.Point(12, 14);
+            this.lblN.Name = "lblN";
+            this.lblN.Size = new System.Drawing.Size(20, 13);
+            this.lblN.TabIndex = 2;
+            this.lblN.Text = "n:";
+            // 
+            // lblA
+            // 
+            this.lblA.AutoSize = true;
+            this.lblA.Location = new System.Drawing.Point(12, 45);
+            this.lblA.Name = "lblA";
+            this.lblA.Size = new System.Drawing.Size(54, 13);
+            this.lblA.TabIndex = 3;
+            this.lblA.Text = "Матрица A";
+            // 
+            // dgvA
+            // 
+            this.dgvA.AllowUserToAddRows = false;
+            this.dgvA.AllowUserToDeleteRows = false;
+            this.dgvA.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvA.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvA.Location = new System.Drawing.Point(12, 65);
+            this.dgvA.Name = "dgvA";
+            this.dgvA.RowHeadersVisible = false;
+            this.dgvA.Size = new System.Drawing.Size(420, 240);
+            this.dgvA.TabIndex = 4;
+            // 
+            // lblB
+            // 
+            this.lblB.AutoSize = true;
+            this.lblB.Location = new System.Drawing.Point(450, 45);
+            this.lblB.Name = "lblB";
+            this.lblB.Size = new System.Drawing.Size(64, 13);
+            this.lblB.TabIndex = 5;
+            this.lblB.Text = "Вектор b";
+            // 
+            // dgvB
+            // 
+            this.dgvB.AllowUserToAddRows = false;
+            this.dgvB.AllowUserToDeleteRows = false;
+            this.dgvB.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvB.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvB.Location = new System.Drawing.Point(450, 65);
+            this.dgvB.Name = "dgvB";
+            this.dgvB.RowHeadersVisible = false;
+            this.dgvB.Size = new System.Drawing.Size(120, 240);
+            this.dgvB.TabIndex = 6;
+            // 
+            // lblX0
+            // 
+            this.lblX0.AutoSize = true;
+            this.lblX0.Location = new System.Drawing.Point(590, 45);
+            this.lblX0.Name = "lblX0";
+            this.lblX0.Size = new System.Drawing.Size(87, 13);
+            this.lblX0.TabIndex = 7;
+            this.lblX0.Text = "Начальное x0";
+            // 
+            // dgvX0
+            // 
+            this.dgvX0.AllowUserToAddRows = false;
+            this.dgvX0.AllowUserToDeleteRows = false;
+            this.dgvX0.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvX0.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvX0.Location = new System.Drawing.Point(590, 65);
+            this.dgvX0.Name = "dgvX0";
+            this.dgvX0.RowHeadersVisible = false;
+            this.dgvX0.Size = new System.Drawing.Size(120, 240);
+            this.dgvX0.TabIndex = 8;
+            // 
+            // lblEps
+            // 
+            this.lblEps.AutoSize = true;
+            this.lblEps.Location = new System.Drawing.Point(12, 320);
+            this.lblEps.Name = "lblEps";
+            this.lblEps.Size = new System.Drawing.Size(58, 13);
+            this.lblEps.TabIndex = 9;
+            this.lblEps.Text = "Точность ε:";
+            // 
+            // txtEps
+            // 
+            this.txtEps.Location = new System.Drawing.Point(78, 317);
+            this.txtEps.Name = "txtEps";
+            this.txtEps.Size = new System.Drawing.Size(90, 20);
+            this.txtEps.TabIndex = 10;
+            this.txtEps.Text = "1e-6";
+            // 
+            // lblMaxIter
+            // 
+            this.lblMaxIter.AutoSize = true;
+            this.lblMaxIter.Location = new System.Drawing.Point(185, 320);
+            this.lblMaxIter.Name = "lblMaxIter";
+            this.lblMaxIter.Size = new System.Drawing.Size(72, 13);
+            this.lblMaxIter.TabIndex = 11;
+            this.lblMaxIter.Text = "Макс. итерац:";
+            // 
+            // txtMaxIter
+            // 
+            this.txtMaxIter.Location = new System.Drawing.Point(265, 317);
+            this.txtMaxIter.Name = "txtMaxIter";
+            this.txtMaxIter.Size = new System.Drawing.Size(80, 20);
+            this.txtMaxIter.TabIndex = 12;
+            this.txtMaxIter.Text = "500";
+            // 
+            // btnX0Zeros
+            // 
+            this.btnX0Zeros.Location = new System.Drawing.Point(590, 317);
+            this.btnX0Zeros.Name = "btnX0Zeros";
+            this.btnX0Zeros.Size = new System.Drawing.Size(58, 23);
+            this.btnX0Zeros.TabIndex = 13;
+            this.btnX0Zeros.Text = "x0=0";
+            this.btnX0Zeros.UseVisualStyleBackColor = true;
+            this.btnX0Zeros.Click += new System.EventHandler(this.BtnX0Zeros_Click);
+            // 
+            // btnX0Ones
+            // 
+            this.btnX0Ones.Location = new System.Drawing.Point(652, 317);
+            this.btnX0Ones.Name = "btnX0Ones";
+            this.btnX0Ones.Size = new System.Drawing.Size(58, 23);
+            this.btnX0Ones.TabIndex = 14;
+            this.btnX0Ones.Text = "x0=1";
+            this.btnX0Ones.UseVisualStyleBackColor = true;
+            this.btnX0Ones.Click += new System.EventHandler(this.BtnX0Ones_Click);
+            // 
+            // btnJacobi
+            // 
+            this.btnJacobi.Location = new System.Drawing.Point(12, 350);
+            this.btnJacobi.Name = "btnJacobi";
+            this.btnJacobi.Size = new System.Drawing.Size(160, 30);
+            this.btnJacobi.TabIndex = 15;
+            this.btnJacobi.Text = "Метод Якоби";
+            this.btnJacobi.UseVisualStyleBackColor = true;
+            this.btnJacobi.Click += new System.EventHandler(this.BtnJacobi_Click);
+            // 
+            // btnSteepest
+            // 
+            this.btnSteepest.Location = new System.Drawing.Point(188, 350);
+            this.btnSteepest.Name = "btnSteepest";
+            this.btnSteepest.Size = new System.Drawing.Size(250, 30);
+            this.btnSteepest.TabIndex = 16;
+            this.btnSteepest.Text = "Метод наискорейшего спуска";
+            this.btnSteepest.UseVisualStyleBackColor = true;
+            this.btnSteepest.Click += new System.EventHandler(this.BtnSteepest_Click);
+            // 
+            // pbPlot
+            // 
+            this.pbPlot.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pbPlot.Location = new System.Drawing.Point(12, 392);
+            this.pbPlot.Name = "pbPlot";
+            this.pbPlot.Size = new System.Drawing.Size(698, 220);
+            this.pbPlot.TabIndex = 17;
+            this.pbPlot.TabStop = false;
+            // 
+            // txtResult
+            // 
+            this.txtResult.Location = new System.Drawing.Point(730, 12);
+            this.txtResult.Multiline = true;
+            this.txtResult.Name = "txtResult";
+            this.txtResult.ReadOnly = true;
+            this.txtResult.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtResult.Size = new System.Drawing.Size(360, 600);
+            this.txtResult.TabIndex = 18;
+            this.txtResult.Font = new System.Drawing.Font("Consolas", 9F);
+            // 
+            // Form1
+            // 
+            this.ClientSize = new System.Drawing.Size(1104, 624);
+            this.Controls.Add(this.txtResult);
+            this.Controls.Add(this.pbPlot);
+            this.Controls.Add(this.btnSteepest);
+            this.Controls.Add(this.btnJacobi);
+            this.Controls.Add(this.btnX0Ones);
+            this.Controls.Add(this.btnX0Zeros);
+            this.Controls.Add(this.txtMaxIter);
+            this.Controls.Add(this.lblMaxIter);
+            this.Controls.Add(this.txtEps);
+            this.Controls.Add(this.lblEps);
+            this.Controls.Add(this.dgvX0);
+            this.Controls.Add(this.lblX0);
+            this.Controls.Add(this.dgvB);
+            this.Controls.Add(this.lblB);
+            this.Controls.Add(this.dgvA);
+            this.Controls.Add(this.lblA);
+            this.Controls.Add(this.lblN);
+            this.Controls.Add(this.btnCreate);
+            this.Controls.Add(this.nudN);
+            this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Итерационные методы СЛАУ: Якоби и наискорейший спуск";
+            ((System.ComponentModel.ISupportInitialize)(this.nudN)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvA)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvB)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvX0)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPlot)).EndInit();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+        }
+    }
+}
+
+
+
+
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Text;
+using System.Windows.Forms;
+using System.Drawing;
+
+namespace IterativeSlaeLab4
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+            BtnCreate_Click(this, EventArgs.Empty);
+        }
+
+        private void BtnCreate_Click(object sender, EventArgs e)
+        {
+            int n = (int)nudN.Value;
+
+            SetupGridMatrix(dgvA, n);
+            SetupGridVector(dgvB, n, "b");
+            SetupGridVector(dgvX0, n, "x0");
+
+            // Заполняем нулями для удобства
+            for (int i = 0; i < n; i++)
+            {
+                dgvB.Rows[i].Cells[0].Value = "0";
+                dgvX0.Rows[i].Cells[0].Value = "0";
+                for (int j = 0; j < n; j++)
+                    dgvA.Rows[i].Cells[j].Value = (i == j) ? "1" : "0";
+            }
+
+            txtResult.Clear();
+            ClearPlot();
+        }
+
+        private void BtnX0Zeros_Click(object sender, EventArgs e)
+        {
+            int n = dgvX0.RowCount;
+            for (int i = 0; i < n; i++)
+                dgvX0.Rows[i].Cells[0].Value = "0";
+        }
+
+        private void BtnX0Ones_Click(object sender, EventArgs e)
+        {
+            int n = dgvX0.RowCount;
+            for (int i = 0; i < n; i++)
+                dgvX0.Rows[i].Cells[0].Value = "1";
+        }
+
+        private void BtnJacobi_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var data = ReadInputs();
+                var res = SolveJacobi(data.A, data.b, data.x0, data.eps, data.maxIter);
+                ShowAndPlot("Метод Якоби", data.A, data.b, res.x, res.residualNorms, res.iterationsToEps, res.converged);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void BtnSteepest_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var data = ReadInputs();
+                var res = SolveSteepestDescent(data.A, data.b, data.x0, data.eps, data.maxIter);
+                ShowAndPlot("Метод наискорейшего спуска", data.A, data.b, res.x, res.residualNorms, res.iterationsToEps, res.converged);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        // ===================== ЧТЕНИЕ ДАННЫХ =====================
+
+        private (double[,] A, double[] b, double[] x0, double eps, int maxIter) ReadInputs()
+        {
+            double[,] A = ReadMatrix(dgvA);
+            double[] b = ReadVector(dgvB);
+            double[] x0 = ReadVector(dgvX0);
+
+            double eps = ReadDouble(txtEps.Text, "ε");
+            if (eps <= 0) throw new Exception("ε должно быть > 0.");
+
+            int maxIter = ReadInt(txtMaxIter.Text, "макс. итераций");
+            if (maxIter <= 0) throw new Exception("Макс. итераций должно быть > 0.");
+
+            return (A, b, x0, eps, maxIter);
+        }
+
+        private double[,] ReadMatrix(DataGridView dgv)
+        {
+            int n = dgv.ColumnCount;
+            if (n == 0 || dgv.RowCount != n)
+                throw new Exception("Матрица A: сначала создайте таблицу нужного размера.");
+
+            double[,] A = new double[n, n];
+
+            var ci = CultureInfo.CurrentCulture;
+            var inv = CultureInfo.InvariantCulture;
+
+            for (int i = 0; i < n; i++)
+                for (int j = 0; j < n; j++)
+                {
+                    object v = dgv.Rows[i].Cells[j].Value;
+                    if (v == null) throw new Exception($"A[{i + 1},{j + 1}] не заполнен.");
+
+                    string s = v.ToString().Trim();
+                    if (!double.TryParse(s, NumberStyles.Any, ci, out double x) &&
+                        !double.TryParse(s, NumberStyles.Any, inv, out x))
+                        throw new Exception($"Некорректное число в A[{i + 1},{j + 1}]: '{s}'");
+
+                    A[i, j] = x;
+                }
+
+            return A;
+        }
+
+        private double[] ReadVector(DataGridView dgv)
+        {
+            int n = dgv.RowCount;
+            if (dgv.ColumnCount != 1)
+                throw new Exception("Вектор должен иметь один столбец.");
+
+            double[] v = new double[n];
+
+            var ci = CultureInfo.CurrentCulture;
+            var inv = CultureInfo.InvariantCulture;
+
+            for (int i = 0; i < n; i++)
+            {
+                object cell = dgv.Rows[i].Cells[0].Value;
+                if (cell == null) throw new Exception($"Вектор: элемент {i + 1} не заполнен.");
+
+                string s = cell.ToString().Trim();
+                if (!double.TryParse(s, NumberStyles.Any, ci, out double x) &&
+                    !double.TryParse(s, NumberStyles.Any, inv, out x))
+                    throw new Exception($"Некорректное число в векторе (строка {i + 1}): '{s}'");
+
+                v[i] = x;
+            }
+
+            return v;
+        }
+
+        private double ReadDouble(string s, string name)
+        {
+            s = s.Trim().Replace(',', '.');
+            if (!double.TryParse(s, NumberStyles.Any, CultureInfo.InvariantCulture, out double v))
+                throw new Exception($"Не удалось прочитать {name}.");
+            return v;
+        }
+
+        private int ReadInt(string s, string name)
+        {
+            s = s.Trim();
+            if (!int.TryParse(s, NumberStyles.Integer, CultureInfo.InvariantCulture, out int v))
+                throw new Exception($"Не удалось прочитать {name}.");
+            return v;
+        }
+
+        // ===================== МЕТОД ЯКОБИ =====================
+
+        private (double[] x, List<double> residualNorms, int iterationsToEps, bool converged) SolveJacobi(
+            double[,] A, double[] b, double[] x0, double eps, int maxIter)
+        {
+            int n = b.Length;
+            double[] x = (double[])x0.Clone();
+            double[] xNew = new double[n];
+
+            // Проверка диагонали
+            for (int i = 0; i < n; i++)
+                if (Math.Abs(A[i, i]) < 1e-15)
+                    throw new Exception("Метод Якоби: на диагонали есть нулевой элемент (деление невозможно).");
+
+            var norms = new List<double>();
+
+            int itReached = -1;
+            for (int iter = 1; iter <= maxIter; iter++)
+            {
+                for (int i = 0; i < n; i++)
+                {
+                    double sum = 0.0;
+                    for (int j = 0; j < n; j++)
+                    {
+                        if (j == i) continue;
+                        sum += A[i, j] * x[j];
+                    }
+                    xNew[i] = (b[i] - sum) / A[i, i];
+                }
+
+                Array.Copy(xNew, x, n);
+
+                double rn = ResidualNorm2(A, x, b);
+                norms.Add(rn);
+
+                if (rn < eps)
+                {
+                    itReached = iter;
+                    return (x, norms, itReached, true);
+                }
+            }
+
+            return (x, norms, itReached, false);
+        }
+
+        // ===================== НАИСКОРЕЙШИЙ СПУСК =====================
+        // Для сходимости обычно требуется SPD матрица A (симметричная положительно определённая)
+
+        private (double[] x, List<double> residualNorms, int iterationsToEps, bool converged) SolveSteepestDescent(
+            double[,] A, double[] b, double[] x0, double eps, int maxIter)
+        {
+            int n = b.Length;
+            double[] x = (double[])x0.Clone();
+
+            var norms = new List<double>();
+
+            int itReached = -1;
+
+            for (int iter = 1; iter <= maxIter; iter++)
+            {
+                double[] r = Residual(A, x, b); // r = b - A x
+                double rn = Norm2(r);
+                norms.Add(rn);
+
+                if (rn < eps)
+                {
+                    itReached = iter - 1;
+                    return (x, norms, itReached, true);
+                }
+
+                // alpha = (r^T r) / (r^T A r)
+                double[] Ar = Multiply(A, r);
+                double rTr = Dot(r, r);
+                double rTAr = Dot(r, Ar);
+
+                if (Math.Abs(rTAr) < 1e-20)
+                    return (x, norms, -1, false);
+
+                double alpha = rTr / rTAr;
+
+                for (int i = 0; i < n; i++)
+                    x[i] = x[i] + alpha * r[i];
+            }
+
+            // финальная проверка
+            double rnLast = ResidualNorm2(A, x, b);
+            if (rnLast < eps) itReached = norms.Count;
+
+            return (x, norms, itReached, rnLast < eps);
+        }
+
+        // ===================== ВСПОМОГАТЕЛЬНЫЕ МАТФУНКЦИИ =====================
+
+        private double[] Multiply(double[,] A, double[] x)
+        {
+            int n = x.Length;
+            double[] y = new double[n];
+            for (int i = 0; i < n; i++)
+            {
+                double s = 0;
+                for (int j = 0; j < n; j++)
+                    s += A[i, j] * x[j];
+                y[i] = s;
+            }
+            return y;
+        }
+
+        private double[] Residual(double[,] A, double[] x, double[] b)
+        {
+            // r = b - A x
+            int n = b.Length;
+            double[] Ax = Multiply(A, x);
+            double[] r = new double[n];
+            for (int i = 0; i < n; i++)
+                r[i] = b[i] - Ax[i];
+            return r;
+        }
+
+        private double ResidualNorm2(double[,] A, double[] x, double[] b)
+        {
+            return Norm2(Residual(A, x, b));
+        }
+
+        private double Dot(double[] a, double[] b)
+        {
+            double s = 0;
+            for (int i = 0; i < a.Length; i++)
+                s += a[i] * b[i];
+            return s;
+        }
+
+        private double Norm2(double[] v)
+        {
+            double s = 0;
+            for (int i = 0; i < v.Length; i++)
+                s += v[i] * v[i];
+            return Math.Sqrt(s);
+        }
+
+        // ===================== ВЫВОД + ГРАФИК =====================
+
+        private void ShowAndPlot(string methodName, double[,] A, double[] b, double[] x,
+            List<double> residualNorms, int itReached, bool converged)
+        {
+            var sb = new StringBuilder();
+            sb.AppendLine(methodName);
+            sb.AppendLine(new string('-', 60));
+            sb.AppendLine($"n = {b.Length}");
+            sb.AppendLine($"Статус: {(converged ? "сошёлся" : "не сошёлся")}");
+            if (itReached >= 0)
+                sb.AppendLine($"Точность достигнута на итерации: {itReached}");
+            else
+                sb.AppendLine("Точность не достигнута в заданное число итераций.");
+
+            sb.AppendLine();
+
+            sb.AppendLine("Решение x:");
+            for (int i = 0; i < x.Length; i++)
+                sb.AppendLine($"x{i + 1} = {x[i].ToString("0.###############", CultureInfo.InvariantCulture)}");
+
+            sb.AppendLine();
+            double rn = ResidualNorm2(A, x, b);
+            sb.AppendLine($"||r||2 = ||b - A x||2 = {rn.ToString("0.000000E+0", CultureInfo.InvariantCulture)}");
+
+            txtResult.Text = sb.ToString();
+
+            RenderResidualPlot(residualNorms);
+        }
+
+        private void ClearPlot()
+        {
+            if (pbPlot.Image != null)
+            {
+                pbPlot.Image.Dispose();
+                pbPlot.Image = null;
+            }
+            pbPlot.Invalidate();
+        }
+
+        private void RenderResidualPlot(List<double> values)
+        {
+            ClearPlot();
+
+            int w = pbPlot.Width;
+            int h = pbPlot.Height;
+
+            if (w < 10 || h < 10) return;
+
+            var bmp = new Bitmap(w, h);
+            using (var g = Graphics.FromImage(bmp))
+            {
+                g.Clear(Color.White);
+
+                // рамка
+                using (var penBorder = new Pen(Color.Black, 1))
+                    g.DrawRectangle(penBorder, 0, 0, w - 1, h - 1);
+
+                if (values == null || values.Count == 0)
+                {
+                    pbPlot.Image = bmp;
+                    return;
+                }
+
+                int left = 45;
+                int right = 10;
+                int top = 10;
+                int bottom = 30;
+
+                int plotW = w - left - right;
+                int plotH = h - top - bottom;
+
+                // оси
+                using (var penAxis = new Pen(Color.Black, 1))
+                {
+                    g.DrawLine(penAxis, left, top, left, top + plotH);
+                    g.DrawLine(penAxis, left, top + plotH, left + plotW, top + plotH);
+                }
+
+                double yMin = 0.0;
+                double yMax = 0.0;
+                foreach (double v in values) if (v > yMax) yMax = v;
+
+                if (yMax <= 0) yMax = 1.0;
+
+                // подписи
+                using (var f = new Font("Segoe UI", 8f))
+                using (var br = new SolidBrush(Color.Black))
+                {
+                    g.DrawString("||r||2", f, br, 5, 5);
+                    g.DrawString("итерации", f, br, w - 70, h - 20);
+
+                    g.DrawString(yMax.ToString("0.###E+0", CultureInfo.InvariantCulture), f, br, 5, top - 2);
+                    g.DrawString(yMin.ToString("0.###E+0", CultureInfo.InvariantCulture), f, br, 5, top + plotH - 10);
+                    g.DrawString((values.Count - 1).ToString(CultureInfo.InvariantCulture), f, br, left + plotW - 15, top + plotH + 2);
+                }
+
+                // кривая
+                using (var penLine = new Pen(Color.Blue, 2))
+                {
+                    for (int i = 1; i < values.Count; i++)
+                    {
+                        float x1 = left + (float)((i - 1) * 1.0 / Math.Max(1, values.Count - 1) * plotW);
+                        float x2 = left + (float)(i * 1.0 / Math.Max(1, values.Count - 1) * plotW);
+
+                        float y1 = top + plotH - (float)((values[i - 1] - yMin) / (yMax - yMin) * plotH);
+                        float y2 = top + plotH - (float)((values[i] - yMin) / (yMax - yMin) * plotH);
+
+                        // защита от NaN
+                        if (float.IsNaN(y1) || float.IsNaN(y2)) continue;
+
+                        g.DrawLine(penLine, x1, y1, x2, y2);
+                    }
+                }
+            }
+
+            pbPlot.Image = bmp;
+        }
+
+        // ===================== НАСТРОЙКА GRID =====================
+
+        private void SetupGridMatrix(DataGridView dgv, int n)
+        {
+            dgv.Columns.Clear();
+            dgv.Rows.Clear();
+            dgv.RowHeadersVisible = false;
+
+            for (int j = 0; j < n; j++)
+            {
+                var col = new DataGridViewTextBoxColumn();
+                col.HeaderText = (j + 1).ToString();
+                dgv.Columns.Add(col);
+            }
+
+            dgv.Rows.Add(n);
+        }
+
+        private void SetupGridVector(DataGridView dgv, int n, string header)
+        {
+            dgv.Columns.Clear();
+            dgv.Rows.Clear();
+            dgv.RowHeadersVisible = false;
+
+            var col = new DataGridViewTextBoxColumn();
+            col.HeaderText = header;
+            dgv.Columns.Add(col);
+
+            dgv.Rows.Add(n);
+        }
+    }
+}

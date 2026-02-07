@@ -2,21 +2,17 @@
 <html lang="ru">
 <head>
   <meta charset="utf-8">
-  <title>Резиновая батарейка</title>
-
+  <title>Батарейка</title>
   <style>
     /* Внешний квадрат */
     .wrapper {
-      width: 40vw;
-      aspect-ratio: 1 / 1;
+      width: 40vw;              /* меняй тут масштаб */
+      aspect-ratio: 1 / 1;      /* всегда квадрат */
       border: 3px solid #000;
-      padding: 5%;
       box-sizing: border-box;
-
-      display: flex;
-      flex-direction: column;
-      justify-content: space-around;
-      align-items: center;
+      padding: 6%;
+      text-align: center;       /* центрируем inline-block */
+      font-size: 1vw;           /* база для em (резиновая) */
     }
 
     /* Батарейка */
@@ -26,8 +22,10 @@
       border: 0.25em solid #000;
       position: relative;
       box-sizing: border-box;
-      display: flex;
-      align-items: stretch;
+      display: inline-block;
+      text-align: left;         /* чтобы уровень не центрировался */
+      margin: 5% 0;             /* вертикальные отступы (резиновые) */
+      vertical-align: top;
     }
 
     /* Заполнение */
@@ -50,19 +48,16 @@
       width: 33%;
       background: #ED1C24;
     }
-
     .medium .battery-level {
       width: 66%;
       background: #FFC60B;
     }
-
     .high .battery-level {
       width: 100%;
       background: #00A055;
     }
   </style>
 </head>
-
 <body>
 
   <div class="wrapper">

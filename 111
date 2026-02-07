@@ -2,40 +2,39 @@
 <html lang="ru">
 <head>
   <meta charset="utf-8">
-  <title>Батарейка</title>
+  <title>Docum</title>
+
   <style>
-    /* Внешний квадрат */
-    .wrapper {
-      width: 40vw;              /* меняй тут масштаб */
-      aspect-ratio: 1 / 1;      /* всегда квадрат */
-      border: 3px solid #000;
+
+    .box {
+      width: 60vw;
+      height: 300px;
+      border: 3px solid black;
+      padding: 5%;
       box-sizing: border-box;
-      padding: 6%;
-      text-align: center;       /* центрируем inline-block */
-      font-size: 1vw;           /* база для em (резиновая) */
+
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
     }
 
-    /* Батарейка */
+
     .battery {
       width: 80%;
       height: 18%;
       border: 0.25em solid #000;
       position: relative;
       box-sizing: border-box;
-      display: inline-block;
-      text-align: left;         /* чтобы уровень не центрировался */
-      margin: 5% 0;             /* вертикальные отступы (резиновые) */
-      vertical-align: top;
+      display: flex;
+      align-items: stretch;
     }
-
-    /* Заполнение */
     .battery-level {
       height: 100%;
     }
-
-    /* Контакт */
     .battery-cap {
       position: absolute;
+
       width: 6%;
       height: 40%;
       background: #000;
@@ -43,24 +42,26 @@
       top: 30%;
     }
 
-    /* Уровни */
     .low .battery-level {
       width: 33%;
-      background: #ED1C24;
+      background: red;
     }
+
     .medium .battery-level {
       width: 66%;
-      background: #FFC60B;
+      background: yellow;
     }
+
     .high .battery-level {
-      width: 100%;
-      background: #00A055;
+      width: 90%;
+      background: green;
     }
   </style>
 </head>
+
 <body>
 
-  <div class="wrapper">
+  <div class="box">
     <div class="battery low">
       <div class="battery-level"></div>
       <div class="battery-cap"></div>
